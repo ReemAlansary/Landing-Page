@@ -5,7 +5,11 @@
 
 ## Section Titles:
 *Section 1 is an introductory section without a title.*
+
 2. Descriptive Statistics
+
 3. Inferential Statistics
+
 4. Programming Knowledge
+
 5. Software Tools
