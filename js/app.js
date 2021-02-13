@@ -2,6 +2,7 @@ const lineBreak = document.createElement('br');
 const breaks = document.createDocumentFragment();
 breaks.appendChild(lineBreak);
 breaks.appendChild(lineBreak);
+
 // navigation menu
 const navItems = ['HOME', 'INTRODUCTION', 'DESCRIPTIVE STATISTICS', 'INFERENTTIAL STATISTICS', 'PROGRAMMING', 'SOFTWARE TOOLS'];
 const hrefs = ['#', '#section1', '#section2', '#section3', '#section4', '#section5'];
@@ -18,6 +19,7 @@ for (let i = 0; i < navItems.length; i++) {
 nav.appendChild(navList);
 document.getElementById('navbar').appendChild(nav);
 document.getElementById('navbar').appendChild(breaks);
+
 // heading
 const introductoryText = document.createElement('p');
 introductoryText.textContent = 'Welcome To';
@@ -26,11 +28,13 @@ mainHeading.textContent = 'All About Data';
 document.getElementById('heading').appendChild(introductoryText);
 document.getElementById('heading').appendChild(mainHeading);
 document.getElementById('navbar').appendChild(breaks);
+
 // section 1 
 const intro = document.createElement('p');
 intro.textContent = 'Data has become a crucial factor for building knowledge amid the rapid advancements in technology which characterizes the world nowadays. In order to make sense of data one has to understand the patterns and insights hidden within the data. This is where data analysis comes in! Data analysis is an integral part of every successful business and the basis of data science. This website aims to provide helpful materials to aspiring data analysts.';
 document.getElementById('section1').appendChild(intro);
 document.getElementById('navbar').appendChild(lineBreak);
+
 // section 2
 const fragment = document.createDocumentFragment();
 const desStats = document.createElement('h3');
@@ -46,6 +50,7 @@ fragment.appendChild(desStatsExp);
 fragment.appendChild(desStatsLink);
 document.getElementById('section2').appendChild(fragment);
 document.getElementById('navbar').appendChild(lineBreak);
+
 // section 3
 const fragment2 = document.createDocumentFragment();
 const infStats = document.createElement('h3');
@@ -61,6 +66,7 @@ fragment2.appendChild(infStatsExp);
 fragment2.appendChild(infStatsLink);
 document.getElementById('section3').appendChild(fragment2);
 document.getElementById('navbar').appendChild(lineBreak);
+
 // section 4
 const fragment3 = document.createDocumentFragment();
 const programming = document.createElement('h3');
@@ -84,6 +90,7 @@ fragment3.appendChild(programmingExp);
 fragment3.appendChild(programmingList);
 document.getElementById('section4').appendChild(fragment3);
 document.getElementById('navbar').appendChild(lineBreak);
+
 // section 5
 const fragment4 = document.createDocumentFragment();
 const tools = document.createElement('h3');
@@ -108,12 +115,26 @@ fragment4.appendChild(list);
 document.getElementById('section5').appendChild(fragment4);
 document.getElementById('navbar').appendChild(lineBreak);
 
-// add event listeners
-
-// function appear() {
-
-// }
-// const sections = document.querySelectorAll('.section');
-// sections.forEach(section => {
-//     section.addEventListener('mouseover', )
-// })
+// event listeners
+function appear(event) {
+    event.target.style.borderWidth = "0.2em";
+}
+function disappear(event) {
+    event.target.style.borderWidth = "0.1em";
+}
+const sections = document.querySelectorAll('.section');
+sections.forEach(section => {
+    section.addEventListener('mouseenter', appear);
+    section.addEventListener('mouseleave', disappear);
+});
+function clicked(event) {
+    event.target.style.color = "#666";
+}
+function endClick(event) {
+    event.target.style.color = "#333";
+}
+const sectionAnchors = document.querySelectorAll('.section a');
+sectionAnchors.forEach(anchor => {
+    anchor.addEventListener('mousedown', clicked);
+    anchor.addEventListener('mouseup', endClick);
+});

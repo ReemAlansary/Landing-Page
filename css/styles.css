@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     width: 90%;
     margin-left: 5%;
@@ -14,8 +18,8 @@ body {
     border-top-width: 0.1em;
     border-bottom-width: 0.1em;
     border-radius: 1em;
-    border-style: groove;
-    border-color: darkslategrey;
+    border-style: outset;
+    border-color: rgb(110, 141, 141);
     padding: 1em;
     margin-top: 2em;
     margin-bottom: 2em;
@@ -75,4 +79,8 @@ nav a::before {
 
 nav a:hover::before {
     width: 100%;
+}
+
+.section a {
+    color: #333;
 }
