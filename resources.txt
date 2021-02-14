@@ -1,0 +1,5 @@
+https://www.youtube.com/watch?v=FEmysQARWFU
+https://css-tricks.com/snippets/jquery/smooth-scrolling/
+https://www.javascripttutorial.net/dom/css/check-if-an-element-is-visible-in-the-viewport/
+https://stackoverflow.com/questions/8052178/difference-between-document-documentelement-clientheight-and-document-body-clien
+https://www.w3schools.com/howto/howto_js_navbar_sticky.asp

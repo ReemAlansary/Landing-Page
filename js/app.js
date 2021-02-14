@@ -4,10 +4,9 @@ breaks.appendChild(lineBreak);
 breaks.appendChild(lineBreak);
 
 // navigation menu
-const navItems = ['HOME', 'INTRODUCTION', 'DESCRIPTIVE STATISTICS', 'INFERENTTIAL STATISTICS', 'PROGRAMMING', 'SOFTWARE TOOLS'];
+const navItems = ['HOME', 'INTRODUCTION', 'DESCRIPTIVE STATISTICS', 'INFERENTIAL STATISTICS', 'PROGRAMMING', 'SOFTWARE TOOLS'];
 const hrefs = ['#', '#section1', '#section2', '#section3', '#section4', '#section5'];
-const navList = document.createElement('ul');
-const nav = document.createElement('nav');
+const navList = document.createDocumentFragment();
 for (let i = 0; i < navItems.length; i++) {
     const anchor = document.createElement('a');
     anchor.setAttribute('href', hrefs[i]);
@@ -16,8 +15,7 @@ for (let i = 0; i < navItems.length; i++) {
     item.appendChild(anchor);
     navList.appendChild(item);
 }
-nav.appendChild(navList);
-document.getElementById('navbar').appendChild(nav);
+document.getElementById('navbar').appendChild(navList);
 document.getElementById('navbar').appendChild(breaks);
 
 // heading
@@ -27,13 +25,16 @@ const mainHeading = document.createElement('h1');
 mainHeading.textContent = 'All About Data';
 document.getElementById('heading').appendChild(introductoryText);
 document.getElementById('heading').appendChild(mainHeading);
-document.getElementById('navbar').appendChild(breaks);
+document.getElementById('heading').appendChild(breaks);
 
 // section 1 
+const heading = document.createElement('h3');
+heading.textContent = 'Introduction';
 const intro = document.createElement('p');
 intro.textContent = 'Data has become a crucial factor for building knowledge amid the rapid advancements in technology which characterizes the world nowadays. In order to make sense of data one has to understand the patterns and insights hidden within the data. This is where data analysis comes in! Data analysis is an integral part of every successful business and the basis of data science. This website aims to provide helpful materials to aspiring data analysts.';
+document.getElementById('section1').appendChild(heading);
 document.getElementById('section1').appendChild(intro);
-document.getElementById('navbar').appendChild(lineBreak);
+document.getElementById('section1').appendChild(lineBreak);
 
 // section 2
 const fragment = document.createDocumentFragment();
@@ -49,7 +50,7 @@ fragment.appendChild(desStats);
 fragment.appendChild(desStatsExp);
 fragment.appendChild(desStatsLink);
 document.getElementById('section2').appendChild(fragment);
-document.getElementById('navbar').appendChild(lineBreak);
+document.getElementById('section2').appendChild(lineBreak);
 
 // section 3
 const fragment2 = document.createDocumentFragment();
@@ -65,12 +66,12 @@ fragment2.appendChild(infStats);
 fragment2.appendChild(infStatsExp);
 fragment2.appendChild(infStatsLink);
 document.getElementById('section3').appendChild(fragment2);
-document.getElementById('navbar').appendChild(lineBreak);
+document.getElementById('section3').appendChild(lineBreak);
 
 // section 4
 const fragment3 = document.createDocumentFragment();
 const programming = document.createElement('h3');
-programming.textContent = 'Programming Knowledge';
+programming.textContent = 'Programming';
 const programmingExp = document.createElement('p');
 programmingExp.textContent = 'Knowing how to analyze data on paper is definitely a major accomplishment, but being able to programmatically analyze larger and more complex datasets will definitely lead to better decision-making. Below are some links to Python and R tutorials:';
 const programmingList = document.createElement('ul');
@@ -89,7 +90,7 @@ fragment3.appendChild(programming);
 fragment3.appendChild(programmingExp);
 fragment3.appendChild(programmingList);
 document.getElementById('section4').appendChild(fragment3);
-document.getElementById('navbar').appendChild(lineBreak);
+document.getElementById('section4').appendChild(lineBreak);
 
 // section 5
 const fragment4 = document.createDocumentFragment();
@@ -113,7 +114,7 @@ fragment4.appendChild(tools);
 fragment4.appendChild(toolsExp);
 fragment4.appendChild(list);
 document.getElementById('section5').appendChild(fragment4);
-document.getElementById('navbar').appendChild(lineBreak);
+document.getElementById('section5').appendChild(breaks);
 
 // event listeners
 function appear(event) {
@@ -138,3 +139,64 @@ sectionAnchors.forEach(anchor => {
     anchor.addEventListener('mousedown', clicked);
     anchor.addEventListener('mouseup', endClick);
 });
+function clear(name) {
+    const navs = document.querySelectorAll('#navbar a');
+    navs.forEach(nav => {
+        if (nav.textContent !== name) {
+            nav.style.color = '#d2d2d2';
+        }
+    });
+}
+function scrollTo(event) {
+    event.preventDefault();
+    event.target.style.color = 'black';
+    switch (event.target.textContent) {
+        case 'HOME': document.getElementById('navbar').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent); break;
+        case 'INTRODUCTION': document.getElementById('section1').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent); break;
+        case 'DESCRIPTIVE STATISTICS': document.getElementById('section2').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent); break;
+        case 'INFERENTIAL STATISTICS': document.getElementById('section3').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent); break;
+        case 'PROGRAMMING': document.getElementById('section4').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent); break;
+        case 'SOFTWARE TOOLS': document.getElementById('section5').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent);
+    }
+}
+const navAnchors = document.querySelectorAll('#navbar a');
+navAnchors.forEach(anchor => {
+    anchor.addEventListener('click', scrollTo);
+});
+function isInViewport(component) {
+    const bounds = component.getBoundingClientRect();
+    if (bounds.x >= 0 && bounds.y >= 0
+        && bounds.right <= (window.innerWidth || document.documentElement.clientWidth)
+        && bounds.bottom <= (window.innerHeight || document.documentElement.clientHeight)) {
+        return true
+    }
+    return false;
+}
+function onScroll() {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        if (isInViewport(section)) {
+            section.style.borderWidth = "0.2em";
+            const navs = document.querySelectorAll('#navbar a');
+            let found = false;
+            if (!found) {
+                for (let i = 0; i < navs.length; i++) {
+                    const heading = section.querySelector('h3');
+                    if (navs[i].textContent === 'INTRODUCTION' && heading == null) {
+                        navs[i].style.color = 'black';
+                        found = true;
+                    }
+                    if (heading && navs[i].textContent === heading.textContent.toUpperCase()) {
+                        navs[i].style.color = 'black';
+                        found = true;
+                    } else {
+                        navs[i].style.color = '#d2d2d2';
+                    }
+                }
+            }
+        } else {
+            section.style.borderWidth = "0.1em";
+        }
+    });
+}
+window.onscroll = onScroll;
