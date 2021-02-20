@@ -3,9 +3,10 @@ const breaks = document.createDocumentFragment();
 breaks.appendChild(lineBreak);
 breaks.appendChild(lineBreak);
 
-// navigation menu
 const navItems = ['HOME', 'INTRODUCTION', 'DESCRIPTIVE STATISTICS', 'INFERENTIAL STATISTICS', 'PROGRAMMING', 'SOFTWARE TOOLS'];
 const hrefs = ['#', '#section1', '#section2', '#section3', '#section4', '#section5'];
+
+// navigation menu
 const navList = document.createDocumentFragment();
 for (let i = 0; i < navItems.length; i++) {
     const anchor = document.createElement('a');
@@ -118,10 +119,10 @@ document.getElementById('section5').appendChild(breaks);
 
 // event listeners
 function appear(event) {
-    event.target.style.borderWidth = "0.2em";
+    event.target.classList.add('active-section');
 }
 function disappear(event) {
-    event.target.style.borderWidth = "0.1em";
+    event.target.classList.remove('active-section');
 }
 const sections = document.querySelectorAll('.section');
 sections.forEach(section => {
@@ -143,13 +144,13 @@ function clear(name) {
     const navs = document.querySelectorAll('#navbar a');
     navs.forEach(nav => {
         if (nav.textContent !== name) {
-            nav.style.color = '#d2d2d2';
+            nav.classList.remove('active-navLink');
         }
     });
 }
 function scrollTo(event) {
     event.preventDefault();
-    event.target.style.color = 'black';
+    event.target.classList.add('active-navLink');
     switch (event.target.textContent) {
         case 'HOME': document.getElementById('navbar').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent); break;
         case 'INTRODUCTION': document.getElementById('section1').scrollIntoView({ behavior: 'smooth' , block: 'center'}); clear(event.target.textContent); break;
